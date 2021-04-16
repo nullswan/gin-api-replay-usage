@@ -4,11 +4,11 @@ import (
 	"encoding/json"
 	"fmt"
 
-	apiusage "github.com/c3b5aw/gin-api-replay-usage"
+	apiUsage "github.com/c3b5aw/gin-api-replay-usage"
 	"github.com/gin-gonic/gin"
 )
 
-func display(e *apiusage.ReplayData) {
+func display(e *apiUsage.ReplayData) {
 	prettyPrint, err := json.MarshalIndent(*e, "", "\t")
 	if err != nil {
 		fmt.Printf("unable to indent replaydata: %s\n", err)
@@ -21,7 +21,7 @@ func main() {
 	router := gin.Default()
 
 	router.Use(
-		apiusage.Register(display),
+		apiUsage.Register(display),
 	)
 
 	router.Any("/*path", func(c *gin.Context) {
