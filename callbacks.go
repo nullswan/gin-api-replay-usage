@@ -1,7 +1,9 @@
 package apiusage
 
 import (
+	"bytes"
 	"encoding/json"
+	"io/ioutil"
 	"strings"
 	"time"
 
@@ -18,6 +20,7 @@ func Before_Request(c *gin.Context, r *ReplayData) {
 	buf := make([]byte, 1024)
 	num, _ := c.Request.Body.Read(buf)
 	r.Request.Body = string(buf[0:num])
+	c.Request.Body = ioutil.NopCloser(bytes.NewBuffer([]byte(r.Request.Body)))
 
 	r.Request.Content_length = c.Request.ContentLength
 	r.Request.Headers = make(map[string]string)
